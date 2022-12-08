@@ -4,26 +4,52 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
     <title>Weather Dashboard</title>
   </head>
   <header>
     <h1>Weather Dashboard App</h1>
-    <h2>
-        Welcome to the Weather Dashboard Application. To get started, enter the
-        location of a city to display its current weather and 5-day
-        weather forecast.
-      </h2>
   </header>
   <body>
     <main>
-    <!-- SECTION TO FIND WEATHER -->
-    <div id="weather-search-section">
+      <h2>
+        Welcome to the Weather Dashboard Application. To get started, enter the
+        location of a city to display its current weather and 5-day weather
+        forecast.
+      </h2>
+      <!-- SECTION TO ENTER AND FIND WEATHER -->
+      <div id="weather-search-section">
         <label for="location">Enter a city location:</label>
-        <input type="text" id="location" placeholder="Enter city">
+        <input type="text" id="location" placeholder="Enter city" />
         <button type="submit" id="search-btn">Find Weather</button>
-    </div>
+      </div>
+
+      <!-- MAIN SECTION TO DISPLAY WEATHER -->
+      <section>
+        <div id="displayed-weather">
+          <div class="temperature">
+            <span id="temperature-value"></span>
+          </div>
+          <div class="wind-speed">
+            <span id="wind-speed-value"></span>
+          </div>
+          <div class="humidity">
+            <span id="humidity-value"></span>
+          </div>
+          <div class="UV-index">
+            <span id="UV-index-value"></span>
+          </div>
+        </div>
+
+        <!-- 5-DAY WEATHER FORECAST SECTION -->
+        <div class="weather-forecast">
+          <h2>5-Day Weather Forecast</h2>
+          <div id="5-Day-Weather-Forecast"></div>
+        </div>
+
+
+      </section>
     </main>
   </body>
 </html>
