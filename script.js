@@ -24,6 +24,8 @@ function getWeatherLocation() {
 
 // Function to show the current weather forecast
 function displayChosenLocationsWeather(weatherData) {
+
+  // Get current weather data
   const currentLocationsWeather = weatherData.current;
 
   // Updates span elements in HTML and displays current weather in main section dashboard
@@ -38,6 +40,41 @@ function displayChosenLocationsWeather(weatherData) {
 // Function to show the 5-day weather forecast
 function displayChosenLocationsWeatherForecast(weatherData) {
 
+  // Get daily weather data
+  const dailyWeatherData = weatherData.daily;
+
+  // Stores the selected div element
+  const dailyForecastList = document.getElementById('5-Day-Weather-Forecast');
+  // Add class to the div element to display
+
+  // for loop to add new displayed forecasts in divs
+  for (let i = 0; i < dailyForecast.length; i++) {
+
+    const dailyWeatherForecast = dailyWeatherData[i];
+    const day = new Date(dailyWeatherData.dt * 1000).toLocaleDateString('en-GB');
+    const temperature = `${dailyWeatherData.temp.day}'°C`;
+    const windSpeed = `${dailyWeatherData.wind_speed}MPH`;
+    const humidity = `${dailyWeatherData.humidity}%`;
+
+    const newCreatedForecast = document.createElement('div');
+
+    newCreatedForecast.innerHTML = `<div class="daily-forecasts">
+    <div class="date">
+      <div>${day}</div>
+    </div>
+    <div class="temperature">
+      <div>${temperature}</div>
+    </div>
+    <div class="windspeed">
+      <div>${windSpeed}</div>
+    </div>
+    <div class="humidity"> 
+      <div>${humidity}</div>
+    </div> `;
+
+    // Add the created divs to HTML element with id 5-Day-Weather-Forecast  to display forecast
+    dailyForecastList.appendChild(newCreatedForecast);
+  }
 };
 
 // Function to retrieve/fetch weather location's longitude & latitude using search parameter
@@ -55,7 +92,7 @@ function findWeatherLocation(search) {
         console.log(location)
         findChosenLocationsLatAndLon(location);
     })
-}
+};
 
 // Function to display the weather of the location chosen provided by lat and lon values
 function findChosenLocationsLatAndLon(lat, lon) {
