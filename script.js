@@ -20,9 +20,7 @@ function getWeatherLocation() {
     findWeatherLocation(searchedInput);
   }
   console.log(findWeatherLocation);
-};
-
-
+}
 
 // Function to show the current weather forecast
 function displayChosenLocationsWeather(weatherData) {
@@ -33,11 +31,11 @@ function displayChosenLocationsWeather(weatherData) {
   const weather = (document.getElementById("temperature-value").textContent =
     "Temperature: " + `${currentLocationsWeather.temp}` + "°C");
   console.log(weather);
-  const windSpeed = document.getElementById("wind-speed-value").textContent =
-    "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH";
-  const humidity = document.getElementById("humidity-value").textContent =
-    "Humidity: " + `${currentLocationsWeather.humidity}` + "%";
-};
+  const windSpeed = (document.getElementById("wind-speed-value").textContent =
+    "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH");
+  const humidity = (document.getElementById("humidity-value").textContent =
+    "Humidity: " + `${currentLocationsWeather.humidity}` + "%");
+}
 
 // Function to show the 5-day weather forecast
 function displayChosenLocationsWeatherForecast(weatherData) {
@@ -48,24 +46,29 @@ function displayChosenLocationsWeatherForecast(weatherData) {
   // document.getElementById('weather-forecast').style.display = 'block';
   // Stores the selected div element
   const dailyForecastList = document.getElementById(
-    'Five-Day-Weather-Forecast'
+    "Five-Day-Weather-Forecast"
   );
-  dailyForecast.innerHTML = '';
-  
+  dailyForecastList.innerHTML = "";
+
   // Add class to the div element to display
 
   // for loop to add new displayed forecasts in divs
-  for (let i = 0; i < dailyForecast.length; i++) {
+  for (let i = 0; i < dailyForecast; i++) {
+    console.log(i);
     const dailyWeatherForecast = dailyWeatherData[i];
-    const day = new Date(dailyWeatherData.dt * 1000).toLocaleDateString(
-      "en-GB"
+    const day = new Date(dailyWeatherForecast.dt * 1000).toLocaleDateString(
+      "en-GB",
+      { weekday: "long" }
     );
-    const temperature = `${dailyWeatherData.temp.day}°C`;
-    const windSpeed = `${dailyWeatherData.wind_speed}MPH`;
-    const humidity = `${dailyWeatherData.humidity}%`;
 
-    const newCreatedForecast = document.createElement('div');
-    newCreatedForecast.classList.add('Forecast');
+    console.log(dailyWeatherForecast);
+
+    const temperature = `Temperature: ${dailyWeatherForecast.temp.day}°C`;
+    const windSpeed = `Wind: ${dailyWeatherForecast.wind_speed}MPH`;
+    const humidity = `Humidity: ${dailyWeatherForecast.humidity}%`;
+
+    const newCreatedForecast = document.createElement("div");
+    newCreatedForecast.classList.add("Forecast");
 
     newCreatedForecast.innerHTML = `<div class="daily-forecasts">
     <div class="date">
@@ -84,9 +87,8 @@ function displayChosenLocationsWeatherForecast(weatherData) {
 
     // Add the created divs to HTML element with id 5-Day-Weather-Forecast to display forecast
     dailyForecastList.appendChild(newCreatedForecast);
-    console.log(displayChosenLocationsWeatherForecast);
   }
-};
+}
 
 // Function to retrieve/fetch weather location's longitude & latitude using search parameter
 function findWeatherLocation(search) {
@@ -99,17 +101,15 @@ function findWeatherLocation(search) {
     })
     .then(function (data) {
       //Pick the first location from the results
-      const location = data[0];
-      console.log(location);
-      findChosenLocationsLatAndLon(location);
-      
-      
+      const latAndLon = data[0];
+      console.log(latAndLon);
+      findChosenLocationsLatAndLon(latAndLon);
     });
-};
+}
 
 // Function to display the weather of the location chosen provided by lat and lon values
-function findChosenLocationsLatAndLon(lat, lon) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=51.5073219&lon=0.1276474&units=imperial&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
+function findChosenLocationsLatAndLon(latAndLon) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latAndLon.lat}&lon=${latAndLon.lon}&units=imperial&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
 
   // Fetch request for apiUrl
   fetch(apiUrl)
@@ -123,7 +123,7 @@ function findChosenLocationsLatAndLon(lat, lon) {
       // Shows the 5-day weather forecast
       displayChosenLocationsWeatherForecast(data);
     });
-};
+}
 
 // Event listener for findWeatherButtonElement
-findWeatherButtonElement.addEventListener('click', getWeatherLocation);
+findWeatherButtonElement.addEventListener("click", getWeatherLocation);
