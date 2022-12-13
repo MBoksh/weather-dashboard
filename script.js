@@ -19,44 +19,53 @@ function getWeatherLocation() {
   } else {
     findWeatherLocation(searchedInput);
   }
-  console.log(findWeatherLocation)
-}
+  console.log(findWeatherLocation);
+};
+
+
 
 // Function to show the current weather forecast
 function displayChosenLocationsWeather(weatherData) {
-
   // Get current weather data
   const currentLocationsWeather = weatherData.current;
 
   // Updates span elements in HTML and displays current weather in main section dashboard
-  var weather = document.getElementById('temperature-value').textContent = 'Temperature: ' + `${currentLocationsWeather.temp}` + '°C';
+  const weather = (document.getElementById("temperature-value").textContent =
+    "Temperature: " + `${currentLocationsWeather.temp}` + "°C");
   console.log(weather);
-  document.getElementById('wind-speed-value').textContent = 'Wind Speed: ' + `${currentLocationsWeather.wind_speed}` + 'MPH';
-  document.getElementById('humidity-value').textContent = 'Humidity: ' + `${currentLocationsWeather.humidity}` + '%';
-  document.getElementById('UV-index-value').textContent = 'UV Index: ' + `${currentLocationsWeather.uvi}`;
-  
+  const windSpeed = document.getElementById("wind-speed-value").textContent =
+    "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH";
+  const humidity = document.getElementById("humidity-value").textContent =
+    "Humidity: " + `${currentLocationsWeather.humidity}` + "%";
 };
 
 // Function to show the 5-day weather forecast
 function displayChosenLocationsWeatherForecast(weatherData) {
-
   // Get daily weather data
   const dailyWeatherData = weatherData.daily;
 
+  // Show the weather forecasts
+  // document.getElementById('weather-forecast').style.display = 'block';
   // Stores the selected div element
-  const dailyForecastList = document.getElementById('5-Day-Weather-Forecast');
+  const dailyForecastList = document.getElementById(
+    'Five-Day-Weather-Forecast'
+  );
+  dailyForecast.innerHTML = '';
+  
   // Add class to the div element to display
 
   // for loop to add new displayed forecasts in divs
   for (let i = 0; i < dailyForecast.length; i++) {
-
     const dailyWeatherForecast = dailyWeatherData[i];
-    const day = new Date(dailyWeatherData.dt * 1000).toLocaleDateString('en-GB');
-    const temperature = `${dailyWeatherData.temp.day}'°C`;
+    const day = new Date(dailyWeatherData.dt * 1000).toLocaleDateString(
+      "en-GB"
+    );
+    const temperature = `${dailyWeatherData.temp.day}°C`;
     const windSpeed = `${dailyWeatherData.wind_speed}MPH`;
     const humidity = `${dailyWeatherData.humidity}%`;
 
     const newCreatedForecast = document.createElement('div');
+    newCreatedForecast.classList.add('Forecast');
 
     newCreatedForecast.innerHTML = `<div class="daily-forecasts">
     <div class="date">
@@ -70,10 +79,12 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     </div>
     <div class="humidity"> 
       <div>${humidity}</div>
+    </div>
     </div> `;
 
-    // Add the created divs to HTML element with id 5-Day-Weather-Forecast  to display forecast
+    // Add the created divs to HTML element with id 5-Day-Weather-Forecast to display forecast
     dailyForecastList.appendChild(newCreatedForecast);
+    console.log(displayChosenLocationsWeatherForecast);
   }
 };
 
@@ -83,36 +94,36 @@ function findWeatherLocation(search) {
 
   // Fetch request for apiUrl
   fetch(apiUrl)
-    .then(function(response) {
-        return response.json();
+    .then(function (response) {
+      return response.json();
     })
-    .then(function(data) {
-        //Pick the first location from the results
-        const location = data[0];
-        console.log(location)
-        findChosenLocationsLatAndLon(location);
-    })
+    .then(function (data) {
+      //Pick the first location from the results
+      const location = data[0];
+      console.log(location);
+      findChosenLocationsLatAndLon(location);
+      
+      
+    });
 };
 
 // Function to display the weather of the location chosen provided by lat and lon values
 function findChosenLocationsLatAndLon(lat, lon) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=51.5073219&lon=0.1276474&units=imperial&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
 
   // Fetch request for apiUrl
   fetch(apiUrl)
-    .then(function(response) {
-        return response.json();
+    .then(function (response) {
+      return response.json();
     })
-    .then(function(data) {
-    
-        // Shows the current weather forecast
-        displayChosenLocationsWeather(data);
+    .then(function (data) {
+      // Shows the current weather forecast
+      displayChosenLocationsWeather(data);
 
-        // Shows the 5-day weather forecast
-        displayChosenLocationsWeatherForecast(data);
-    })
-
+      // Shows the 5-day weather forecast
+      displayChosenLocationsWeatherForecast(data);
+    });
 };
 
 // Event listener for findWeatherButtonElement
-findWeatherButtonElement.addEventListener("click", getWeatherLocation);
+findWeatherButtonElement.addEventListener('click', getWeatherLocation);

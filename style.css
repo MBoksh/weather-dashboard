@@ -30,6 +30,10 @@ aside {
 
 }
 
-#weather-forecast {
-  
+.weather-forecast {
+  /* display: none; */
+}
+
+#Five-Day-Weather-Forecast {
+
 }
