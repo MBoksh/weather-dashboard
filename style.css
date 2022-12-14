@@ -31,9 +31,21 @@ aside {
 }
 
 .weather-forecast {
-  /* display: none; */
+  /* Changed to display: block; with javascript to dynamically show the forecast */
+  display: none;
+
 }
 
-#Five-Day-Weather-Forecast {
 
+#Five-Day-Weather-Forecast {
+  /* Displays the 5 cards in a inline row with flex-box */
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+
+.Forecast {
+  /* Adds space between the weather forecasts */
+  margin: 0 2.5rem;
 }

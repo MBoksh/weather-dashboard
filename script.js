@@ -26,15 +26,28 @@ function getWeatherLocation() {
 function displayChosenLocationsWeather(weatherData) {
   // Get current weather data
   const currentLocationsWeather = weatherData.current;
+  // Gets the current weathers icon
+  const weatherIconImage = `${currentLocationsWeather.weather[0].icon}`;
+  
 
   // Updates span elements in HTML and displays current weather in main section dashboard
+
+ 
+// Retreives current weathers icon from icon url and displays in img element
+  const weatherIcon = (document.getElementById("icon").src =
+  `http://openweathermap.org/img/wn/${weatherIconImage}@2x.png`);
+
+  
+
   const weather = (document.getElementById("temperature-value").textContent =
-    "Temperature: " + `${currentLocationsWeather.temp}` + "°C");
-  console.log(weather);
+    "Temperature: " + `${currentLocationsWeather.temp}` + "°");
+  
   const windSpeed = (document.getElementById("wind-speed-value").textContent =
     "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH");
   const humidity = (document.getElementById("humidity-value").textContent =
     "Humidity: " + `${currentLocationsWeather.humidity}` + "%");
+
+    console.log(displayChosenLocationsWeather);
 }
 
 // Function to show the 5-day weather forecast
@@ -42,17 +55,18 @@ function displayChosenLocationsWeatherForecast(weatherData) {
   // Get daily weather data
   const dailyWeatherData = weatherData.daily;
 
-  // Show the weather forecasts
-  // document.getElementById('weather-forecast').style.display = 'block';
+  // Show the weather forecasts dynamically by changing CSS
+  document.querySelector('.weather-forecast').style.display = 'block';
   // Stores the selected div element
   const dailyForecastList = document.getElementById(
     "Five-Day-Weather-Forecast"
   );
+  // Clears the div elements to display new chosen weather forecasts
   dailyForecastList.innerHTML = "";
 
   // Add class to the div element to display
 
-  // for loop to add new displayed forecasts in divs
+  // for loop to add new displayed forecasts in divs, iterates through 5 times
   for (let i = 0; i < dailyForecast; i++) {
     console.log(i);
     const dailyWeatherForecast = dailyWeatherData[i];
@@ -61,9 +75,13 @@ function displayChosenLocationsWeatherForecast(weatherData) {
       { weekday: "long" }
     );
 
+
     console.log(dailyWeatherForecast);
 
-    const temperature = `Temperature: ${dailyWeatherForecast.temp.day}°C`;
+    // Allows forecast to be displayed
+    // Retreives current weathers icon from icon url and displays in img element
+    const weatherIcon = `${dailyWeatherForecast.weather[0].icon}`;
+    const temperature = `Temperature: ${dailyWeatherForecast.temp.day}°`;
     const windSpeed = `Wind: ${dailyWeatherForecast.wind_speed}MPH`;
     const humidity = `Humidity: ${dailyWeatherForecast.humidity}%`;
 
@@ -74,6 +92,9 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     <div class="date">
       <div>${day}</div>
     </div>
+    <div class="icon">
+    <img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png"/>
+  </div>
     <div class="temperature">
       <div>${temperature}</div>
     </div>
@@ -122,6 +143,12 @@ function findChosenLocationsLatAndLon(latAndLon) {
 
       // Shows the 5-day weather forecast
       displayChosenLocationsWeatherForecast(data);
+
+      // Shows the name and country selected in the main weather dashboard
+      const name = latAndLon.name;
+      const country = latAndLon.country;
+      nameAndCountry = (document.getElementById("name").textContent =
+      `${name}, ${country}`);
     });
 }
 
