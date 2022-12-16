@@ -30,9 +30,16 @@
         <input type="text" id="location" placeholder="Enter city" />
         <button type="submit" id="search-btn">Find Weather</button>
       </div>
-
-      <!-- MAIN SECTION TO DISPLAY WEATHER -->
+      
       <section>
+        <!-- SIDE BAR WITH RECENT SEARCHES -->
+        <aside>
+          <h3>Recent Searches</h3>
+          <ul id="recent-searches"></ul>
+        </aside>
+
+        <!-- MAIN SECTION TO DISPLAY WEATHER -->
+
         <div id="displayed-weather">
           <div class="location">
             <span id="name"></span>
@@ -51,12 +58,6 @@
             <span id="UV-index-value"></span>
           </div>
         </div>
-
-        <!-- SIDE BAR WITH RECENT SEARCHES -->
-        <aside>
-          <h3>Recent Searches</h3>
-          <ul id="recent-searches"></ul>
-        </aside>
       </section>
 
       <!-- 5-DAY WEATHER FORECAST SECTION -->

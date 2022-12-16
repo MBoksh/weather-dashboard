@@ -16,7 +16,7 @@ function getWeatherLocation() {
   // See if weather input is valid, if not window alert an error for 3 seconds and stop code running
   if (searchedInput === "") {
     alert("Error: Please enter a valid location");
-    setTimeout(alert, 3000);
+    setTimeout(3000);
     return;
   } else {
     // If weather input is valid then find the weather for that location
@@ -78,7 +78,8 @@ function displayChosenLocationsWeather(weatherData) {
   const currentLocationsWeather = weatherData.current;
   // Gets the current weathers icon
   const weatherIconImage = `${currentLocationsWeather.weather[0].icon}`;
-
+// Displays the main weather dashboard when location entered by changing CSS display
+  document.querySelector('#displayed-weather').style.display = 'inline-block';
   // Updates span elements in HTML and displays current weather in main section dashboard
 
   // Retreives current weathers icon from icon url and displays in img element
@@ -133,7 +134,7 @@ function displayChosenLocationsWeatherForecast(weatherData) {
 
     const newCreatedForecast = document.createElement("div");
     newCreatedForecast.classList.add("Forecast");
-
+    
     newCreatedForecast.innerHTML = `<div class="daily-forecasts">
     <div class="date">
       <div>${day}</div>
