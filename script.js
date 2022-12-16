@@ -2,8 +2,11 @@
 let searchedLocationElement = document.getElementById("location");
 // Button to submit
 let findWeatherButtonElement = document.getElementById("search-btn");
-// Setting the limit of how many forecasts to retrieve
+// Setting the limit of how many forecasts to display
 const dailyForecast = 5;
+// Array for recent locations searched to be stored
+const recentLocations = [];
+console.log(recentLocations);
 
 // Function to retrieve weather using findWeatherLocation function from api if city searched for is valid
 function getWeatherLocation() {
@@ -15,12 +18,54 @@ function getWeatherLocation() {
     alert("Error: Please enter a valid location");
     setTimeout(alert, 3000);
     return;
-    // If weather input is valid then find the weather for that location
   } else {
+    // If weather input is valid then find the weather for that location
     findWeatherLocation(searchedInput);
+    // Calls array function
+    addInputToRecentLocationsArrayAndLocalStorage(searchedInput);
   }
   console.log(findWeatherLocation);
 }
+
+function addInputToRecentLocationsArrayAndLocalStorage(searchedInput) {
+  // Push searched location to array
+  recentLocations.push(searchedInput);
+  // Adds searched location to array
+  localStorage.setItem("recentLocations", JSON.stringify(recentLocations));
+  console.log(recentLocations);
+  // Call this function to create recent locations list
+  addToRecentLocationsList();
+}
+
+function addToRecentLocationsList() {
+// Call this function to allow locations to be added to list
+  loadLocalStorageToRecentLocations() 
+  let recentLocationsList = document.getElementById("recent-searches");
+  // Set to empty to fill with local storage items
+  recentLocationsList.innerHTML = "";
+  // For loop to create list elements for cities in local storage
+  for (i = 0; i < recentLocations.length; i++) {
+    let searchedLocation = document.createElement("li");
+    searchedLocation.classList.add("previous-locations");
+    searchedLocation.textContent = recentLocations[i];
+    // Event listener for onClickRecentLocations function
+    // searchedLocation.addEventListener('click', onClickRecentLocations);
+
+    // Add the list to the unordered list element
+    recentLocationsList.appendChild(searchedLocation);
+  }
+};
+
+// Function to add local storage items to the created list in recent locations
+function loadLocalStorageToRecentLocations() {
+  const recentHistory = localStorage.getItem('recentLocations');
+  if (recentHistory) {
+    JSON.parse(recentHistory);
+  } else {
+    return;
+  }
+
+};
 
 // Function to show the current weather forecast
 function displayChosenLocationsWeather(weatherData) {
@@ -28,26 +73,23 @@ function displayChosenLocationsWeather(weatherData) {
   const currentLocationsWeather = weatherData.current;
   // Gets the current weathers icon
   const weatherIconImage = `${currentLocationsWeather.weather[0].icon}`;
-  
 
   // Updates span elements in HTML and displays current weather in main section dashboard
 
- 
-// Retreives current weathers icon from icon url and displays in img element
-  const weatherIcon = (document.getElementById("icon").src =
-  `http://openweathermap.org/img/wn/${weatherIconImage}@2x.png`);
-
-  
+  // Retreives current weathers icon from icon url and displays in img element
+  const weatherIcon = (document.getElementById(
+    "icon"
+  ).src = `http://openweathermap.org/img/wn/${weatherIconImage}@2x.png`);
 
   const weather = (document.getElementById("temperature-value").textContent =
     "Temperature: " + `${currentLocationsWeather.temp}` + "°");
-  
+
   const windSpeed = (document.getElementById("wind-speed-value").textContent =
     "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH");
   const humidity = (document.getElementById("humidity-value").textContent =
     "Humidity: " + `${currentLocationsWeather.humidity}` + "%");
 
-    console.log(displayChosenLocationsWeather);
+  console.log(displayChosenLocationsWeather);
 }
 
 // Function to show the 5-day weather forecast
@@ -56,7 +98,7 @@ function displayChosenLocationsWeatherForecast(weatherData) {
   const dailyWeatherData = weatherData.daily;
 
   // Show the weather forecasts dynamically by changing CSS
-  document.querySelector('.weather-forecast').style.display = 'block';
+  document.querySelector(".weather-forecast").style.display = "block";
   // Stores the selected div element
   const dailyForecastList = document.getElementById(
     "Five-Day-Weather-Forecast"
@@ -74,7 +116,6 @@ function displayChosenLocationsWeatherForecast(weatherData) {
       "en-GB",
       { weekday: "long" }
     );
-
 
     console.log(dailyWeatherForecast);
 
@@ -147,8 +188,9 @@ function findChosenLocationsLatAndLon(latAndLon) {
       // Shows the name and country selected in the main weather dashboard
       const name = latAndLon.name;
       const country = latAndLon.country;
-      nameAndCountry = (document.getElementById("name").textContent =
-      `${name}, ${country}`);
+      nameAndCountry = document.getElementById(
+        "name"
+      ).textContent = `${name}, ${country}`;
     });
 }
 
