@@ -38,8 +38,8 @@ function addInputToRecentLocationsArrayAndLocalStorage(searchedInput) {
 }
 
 function addToRecentLocationsList() {
-// Call this function to allow locations to be added to list
-  loadLocalStorageToRecentLocations() 
+  // Call this function to allow locations to be added to list
+  loadLocalStorageToRecentLocations();
   let recentLocationsList = document.getElementById("recent-searches");
   // Set to empty to fill with local storage items
   recentLocationsList.innerHTML = "";
@@ -49,22 +49,27 @@ function addToRecentLocationsList() {
     searchedLocation.classList.add("previous-locations");
     searchedLocation.textContent = recentLocations[i];
     // Event listener for onClickRecentLocations function
-    // searchedLocation.addEventListener('click', onClickRecentLocations);
+    searchedLocation.addEventListener("click", onClickRecentLocations);
 
     // Add the list to the unordered list element
     recentLocationsList.appendChild(searchedLocation);
   }
-};
+}
 
 // Function to add local storage items to the created list in recent locations
 function loadLocalStorageToRecentLocations() {
-  const recentHistory = localStorage.getItem('recentLocations');
+  const recentHistory = localStorage.getItem("recentLocations");
   if (recentHistory) {
     JSON.parse(recentHistory);
   } else {
     return;
   }
+};
 
+// Function to find weather of clicked recent location
+function onClickRecentLocations(event) {
+ const recentSearchedLocation = event.target.textContent;
+ findWeatherLocation(recentSearchedLocation);
 };
 
 // Function to show the current weather forecast
@@ -90,7 +95,7 @@ function displayChosenLocationsWeather(weatherData) {
     "Humidity: " + `${currentLocationsWeather.humidity}` + "%");
 
   console.log(displayChosenLocationsWeather);
-}
+};
 
 // Function to show the 5-day weather forecast
 function displayChosenLocationsWeatherForecast(weatherData) {
@@ -150,7 +155,7 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     // Add the created divs to HTML element with id 5-Day-Weather-Forecast to display forecast
     dailyForecastList.appendChild(newCreatedForecast);
   }
-}
+};
 
 // Function to retrieve/fetch weather location's longitude & latitude using search parameter
 function findWeatherLocation(search) {
@@ -167,7 +172,7 @@ function findWeatherLocation(search) {
       console.log(latAndLon);
       findChosenLocationsLatAndLon(latAndLon);
     });
-}
+};
 
 // Function to display the weather of the location chosen provided by lat and lon values
 function findChosenLocationsLatAndLon(latAndLon) {
@@ -192,7 +197,7 @@ function findChosenLocationsLatAndLon(latAndLon) {
         "name"
       ).textContent = `${name}, ${country}`;
     });
-}
+};
 
 // Event listener for findWeatherButtonElement
 findWeatherButtonElement.addEventListener("click", getWeatherLocation);
