@@ -16,12 +16,13 @@ body {
 h1 {
   color: beige;
   background-color: rgb(138, 138, 254);
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 h2 {
   margin: 4rem 2rem;
   color: rgb(74, 73, 73);
+  font-size: 1rem;
 }
 
 #weather-search-section {
@@ -32,11 +33,11 @@ h2 {
 label,
 input,
 button {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 label {
-  font-size: 20px;
+  font-size: 15px;
   color: rgb(74, 73, 73);
 }
 
@@ -66,11 +67,11 @@ button:hover {
   /* changed to inline-block by javascript to show weather dashboard */
   display: none;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1rem;
   margin: 5rem auto;
-  margin-left: 17rem;
-  width: 700px;
-  padding: 2rem;
+  margin-left: 8rem;
+  width: 500px;
+  padding: 1rem;
   background-color: rgb(138, 138, 254);
   border-radius: 8px;
   box-shadow: 5px 10px 10px black;
@@ -81,20 +82,22 @@ aside {
   display: inline-block;
   margin-top: -5rem;
   margin-left: 3rem;
-  padding: 2rem;
+  padding: 1rem;
   background-color: rgb(138, 138, 254);
   border-radius: 8px;
   box-shadow: 5px 10px 10px black;
+  font-size: 15px;
 }
 
 #recent-searches {
+
 }
 
 /* Added class to list elements using javascript */
 .previous-locations {
   list-style-type: none;
   margin: 10px auto;
-  padding: 10px;
+  padding: 6px;
   background-color: rgb(171, 171, 255);
   border-radius: 2px;
   box-shadow: 2px 5px 5px black;
@@ -108,7 +111,7 @@ aside {
 h4 {
   text-align: center;
   margin: 4rem 2rem;
-  font-size: 30px;
+  font-size: 20px;
   color: rgb(74, 73, 73);
 }
 .weather-forecast {
@@ -127,7 +130,7 @@ h4 {
 .Forecast {
   /* Adds space between the weather forecasts */
   margin: 0 2.5rem;
-  padding: 2rem;
+  padding: 1rem;
   background-color: rgb(138, 138, 254);
   border-radius: 8px;
   box-shadow: 5px 10px 10px black;

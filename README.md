@@ -39,3 +39,5 @@ The application is not currently responsive, therefore media queries can be adde
 ![Alt text](images/Screenshot_20221217_201931.png)
 
 ## Deployed Application Link
+
+https://mboksh.github.io/weather-dashboard/
