@@ -6,7 +6,6 @@
 
 header {
   text-align: center;
-  background-color: rgb(138, 138, 254);
 }
 
 body {
@@ -16,11 +15,11 @@ body {
 
 h1 {
   color: beige;
+  background-color: rgb(138, 138, 254);
   font-size: 3rem;
 }
 
 h2 {
-  text-align: center;
   margin: 4rem 2rem;
   color: rgb(74, 73, 73);
 }
@@ -91,7 +90,6 @@ aside {
 #recent-searches {
 }
 
-
 /* Added class to list elements using javascript */
 .previous-locations {
   list-style-type: none;
@@ -124,10 +122,7 @@ h4 {
   justify-content: center;
   width: 90%;
   margin: auto;
-
 }
-
-
 
 .Forecast {
   /* Adds space between the weather forecasts */

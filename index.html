@@ -10,27 +10,27 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./script.js" defer></script>
-    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/CSS/style.css" />
+    <script src="./assets/JS/script.js" defer></script>
+    <title>Weather Dashboard Application</title>
   </head>
   <header>
-    <h1>Weather Dashboard App</h1>
+    <h1>Weather Dashboard</h1>
+    <h2>
+      Welcome to the Weather Dashboard Application. To get started, enter the
+      location of a city to display its current weather and 5-day weather
+      forecast.
+    </h2>
   </header>
   <body>
     <main>
-      <h2>
-        Welcome to the Weather Dashboard Application. To get started, enter the
-        location of a city to display its current weather and 5-day weather
-        forecast.
-      </h2>
       <!-- SECTION TO ENTER AND FIND WEATHER -->
       <div id="weather-search-section">
-        <label for="location">Enter a city location:</label>
+        <label for="location"><strong>Enter a city location:</strong></label>
         <input type="text" id="location" placeholder="Enter city" />
         <button type="submit" id="search-btn">Find Weather</button>
       </div>
-      
+
       <section>
         <!-- SIDE BAR WITH RECENT SEARCHES -->
         <aside>
@@ -41,6 +41,12 @@
         <!-- MAIN SECTION TO DISPLAY WEATHER -->
 
         <div id="displayed-weather">
+          <div class="date">
+            <span id="present-day"></span>
+          </div>
+          <div class="date">
+            <span id="present-date"></span>
+          </div>
           <div class="location">
             <span id="name"></span>
           </div>

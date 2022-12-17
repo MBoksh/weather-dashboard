@@ -9,7 +9,7 @@ const recentLocations = [];
 console.log(recentLocations);
 
 // Function to retrieve weather using findWeatherLocation function from api if city searched for is valid
-function getWeatherLocation() {
+function getWeatherLocation(event) {
   let searchedInput = searchedLocationElement.value;
   console.log(searchedInput);
 
@@ -23,6 +23,7 @@ function getWeatherLocation() {
     findWeatherLocation(searchedInput);
     // Calls array function
     addInputToRecentLocationsArrayAndLocalStorage(searchedInput);
+    event.preventDefault();
   }
   console.log(findWeatherLocation);
 }
@@ -64,13 +65,13 @@ function loadLocalStorageToRecentLocations() {
   } else {
     return;
   }
-};
+}
 
 // Function to find weather of clicked recent location
 function onClickRecentLocations(event) {
- const recentSearchedLocation = event.target.textContent;
- findWeatherLocation(recentSearchedLocation);
-};
+  const recentSearchedLocation = event.target.textContent;
+  findWeatherLocation(recentSearchedLocation);
+}
 
 // Function to show the current weather forecast
 function displayChosenLocationsWeather(weatherData) {
@@ -78,8 +79,8 @@ function displayChosenLocationsWeather(weatherData) {
   const currentLocationsWeather = weatherData.current;
   // Gets the current weathers icon
   const weatherIconImage = `${currentLocationsWeather.weather[0].icon}`;
-// Displays the main weather dashboard when location entered by changing CSS display
-  document.querySelector('#displayed-weather').style.display = 'inline-block';
+  // Displays the main weather dashboard when location entered by changing CSS display
+  document.querySelector("#displayed-weather").style.display = "inline-block";
   // Updates span elements in HTML and displays current weather in main section dashboard
 
   // Retreives current weathers icon from icon url and displays in img element
@@ -87,8 +88,16 @@ function displayChosenLocationsWeather(weatherData) {
     "icon"
   ).src = `http://openweathermap.org/img/wn/${weatherIconImage}@2x.png`);
 
+  const day = (document.getElementById("present-day").textContent = new Date(
+    currentLocationsWeather.dt * 1000
+  ).toLocaleDateString("en-GB", { weekday: "long" }));
+
+  const date = (document.getElementById("present-date").textContent = new Date(
+    currentLocationsWeather.dt * 1000
+  ).toLocaleDateString("en-GB"));
+
   const weather = (document.getElementById("temperature-value").textContent =
-    "Temperature: " + `${currentLocationsWeather.temp}` + "°");
+    "Temperature: " + `${currentLocationsWeather.temp}` + "°C");
 
   const windSpeed = (document.getElementById("wind-speed-value").textContent =
     "Wind Speed: " + `${currentLocationsWeather.wind_speed}` + "MPH");
@@ -96,7 +105,7 @@ function displayChosenLocationsWeather(weatherData) {
     "Humidity: " + `${currentLocationsWeather.humidity}` + "%");
 
   console.log(displayChosenLocationsWeather);
-};
+}
 
 // Function to show the 5-day weather forecast
 function displayChosenLocationsWeatherForecast(weatherData) {
@@ -119,8 +128,7 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     console.log(i);
     const dailyWeatherForecast = dailyWeatherData[i];
     const day = new Date(dailyWeatherForecast.dt * 1000).toLocaleDateString(
-      "en-GB",
-      { weekday: "long" }
+      "en-GB"
     );
 
     console.log(dailyWeatherForecast);
@@ -128,13 +136,13 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     // Allows forecast to be displayed
     // Retreives current weathers icon from icon url and displays in img element
     const weatherIcon = `${dailyWeatherForecast.weather[0].icon}`;
-    const temperature = `Temperature: ${dailyWeatherForecast.temp.day}°`;
+    const temperature = `Temperature: ${dailyWeatherForecast.temp.day}°C`;
     const windSpeed = `Wind: ${dailyWeatherForecast.wind_speed}MPH`;
     const humidity = `Humidity: ${dailyWeatherForecast.humidity}%`;
 
     const newCreatedForecast = document.createElement("div");
     newCreatedForecast.classList.add("Forecast");
-    
+
     newCreatedForecast.innerHTML = `<div class="daily-forecasts">
     <div class="date">
       <div>${day}</div>
@@ -156,7 +164,7 @@ function displayChosenLocationsWeatherForecast(weatherData) {
     // Add the created divs to HTML element with id 5-Day-Weather-Forecast to display forecast
     dailyForecastList.appendChild(newCreatedForecast);
   }
-};
+}
 
 // Function to retrieve/fetch weather location's longitude & latitude using search parameter
 function findWeatherLocation(search) {
@@ -173,11 +181,11 @@ function findWeatherLocation(search) {
       console.log(latAndLon);
       findChosenLocationsLatAndLon(latAndLon);
     });
-};
+}
 
 // Function to display the weather of the location chosen provided by lat and lon values
 function findChosenLocationsLatAndLon(latAndLon) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latAndLon.lat}&lon=${latAndLon.lon}&units=imperial&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latAndLon.lat}&lon=${latAndLon.lon}&units=metric&exclude=minutely,hourly&appid=d91f911bcf2c0f925fb6535547a5ddc9`;
 
   // Fetch request for apiUrl
   fetch(apiUrl)
@@ -198,7 +206,7 @@ function findChosenLocationsLatAndLon(latAndLon) {
         "name"
       ).textContent = `${name}, ${country}`;
     });
-};
+}
 
 // Event listener for findWeatherButtonElement
 findWeatherButtonElement.addEventListener("click", getWeatherLocation);
